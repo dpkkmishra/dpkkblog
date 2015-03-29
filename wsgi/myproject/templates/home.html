@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load django_markdown %}
+
+{% block blog_entries %}
+{% for object in object_list %}
+  	<div class="post-container">
+		<article class="post">
+			<div class="post-thumbnail">
+				<!-- <a href="#"><img src="http://jeweltheme.com/html/topclass/default/images/blog-post/blog-post-2.jpg" alt="Post Thumbnail Image"></a> -->
+					</div><!-- /.post-thumbnail -->
+					<div class="post-content">
+						<h2 class="post-title">
+							<a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a>
+						</h2>
+						<div class="entry">
+						<p >
+							{{ object.summary|markdown }}
+						</p>
+					</div><!-- /.entry -->
+					<footer class="post-meta">
+						<div class=" pull-left">
+							<span class="entry-date" style="color:#1fb5ac;">
+								{{ object.created }} | Tagged under {{  object.tags.all|join:", " }}
+							</span>
+						</div><!-- /.entry-meta -->
+						<div class="continue-reading pull-right">
+							<a href="{% url "entry_detail" slug=object.slug %}">Continue reading ...</a>
+						</div><!-- /.continue-reading -->
+					</footer><!-- /.post-meta -->
+				</div><!-- /.post-content --> 
+		</article><!-- /.post -->
+	</div>
+{% endfor %}
+{% endblock %}
